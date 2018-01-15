@@ -126,6 +126,7 @@ public class DriveTrain extends PIDSubsystem
 				frontLeft.set(ControlMode.PercentOutput, .3);
 				frontRight.set(ControlMode.PercentOutput, -.3);
 				//wheelz.arcadeDrive(0.3, 1);
+				//hi
 			}
 			
 	public void changeIsTurning(boolean val)
