@@ -1,5 +1,8 @@
 package org.usfirst.frc.team5822.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -8,8 +11,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class DriveTrain extends PIDSubsystem 
 {
 	public static DifferentialDrive wheelz;
-	SpeedControllerGroup left;
-	SpeedControllerGroup right;
+	//SpeedControllerGroup left;
+	//SpeedControllerGroup right;
+	TalonSRX frontLeft;
+	TalonSRX frontRight;
 	static double setpoint; 
 	public static boolean isTurning; 
 	static boolean isBackwards; 
@@ -21,17 +26,17 @@ public class DriveTrain extends PIDSubsystem
 		setAbsoluteTolerance(0.001);
 		getPIDController().setContinuous(false);
 		
-		PWMTalonSRX frontLeft = new PWMTalonSRX(0);
-		PWMTalonSRX rearLeft = new PWMTalonSRX(1);
-		//rearLeft.set(ControlMode.Follower, 0);
-		left = new SpeedControllerGroup(frontLeft, rearLeft);
+		frontLeft = new TalonSRX(0);
+		TalonSRX rearLeft = new TalonSRX(1);
+		rearLeft.set(ControlMode.Follower, 0);
+		//left = new SpeedControllerGroup(frontLeft, rearLeft);
 
-		PWMTalonSRX frontRight = new PWMTalonSRX(2);
-		PWMTalonSRX rearRight = new PWMTalonSRX(3);
-		//rearRight.set(ControlMode.Follower, 2);
-		right = new SpeedControllerGroup(frontRight, rearRight);
+		frontRight = new TalonSRX(2);
+		TalonSRX rearRight = new TalonSRX(3);
+		rearRight.set(ControlMode.Follower, 2);
+		//right = new SpeedControllerGroup(frontRight, rearRight);
 		
-		wheelz = new DifferentialDrive(left, right);
+		//wheelz = new DifferentialDrive(left, right);
 		
 		setpoint = 0; 
 		isTurning = false; 
@@ -63,11 +68,21 @@ public class DriveTrain extends PIDSubsystem
     protected void usePIDOutput(double output) 
     {
     	if(isBackwards)
-    		wheelz.tankDrive(-.4 + output, -.4 - output);
+    	{
+    		frontLeft.set(ControlMode.PercentOutput, -.4 + output);
+			frontRight.set(ControlMode.PercentOutput, -.4 - output);
+    		//wheelz.tankDrive(-.4 + output, -.4 - output);
     		//drive.setLeftRightMotorOutputs(-.4 + output, -.4 - output); // this is where the computed output value fromthe PIDController is applied to the motor
-    	else 
-    		wheelz.tankDrive(-.4 - output, -.4 + output);
+    	}
+    	
+		else 
+		{
+			frontLeft.set(ControlMode.PercentOutput, -.4 - output);
+			frontRight.set(ControlMode.PercentOutput, -.4 + output);
+    		//wheelz.tankDrive(-.4 - output, -.4 + output);
     		//drive.setLeftRightMotorOutputs(.4 - output, .4 + output); //TODO: does this work? 
+		}
+    		
     }
 	
     //basic driving methods for auto commands
