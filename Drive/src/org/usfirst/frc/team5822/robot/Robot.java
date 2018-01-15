@@ -24,8 +24,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Robot extends TimedRobot 
 {
-	public DifferentialDrive wheelz;
-	SpeedControllerGroup left, right;
 	Joystick j = new Joystick(0);
 	Joystick k = new Joystick(1);
 	
@@ -36,14 +34,10 @@ public class Robot extends TimedRobot
 		frontLeft = new TalonSRX(0);
 		TalonSRX rearLeft = new TalonSRX(1);
 		rearLeft.set(ControlMode.Follower, 0);
-		//left = new SpeedControllerGroup(frontLeft, rearLeft);
 		
 		frontRight = new TalonSRX(2);
 		TalonSRX rearRight = new TalonSRX(3);
 		rearRight.set(ControlMode.Follower, 2);
-		//right = new SpeedControllerGroup(frontRight, rearRight);
-		
-	//	wheelz = new DifferentialDrive(frontLeft, frontRight);
 	}
 
 	@Override
