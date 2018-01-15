@@ -13,8 +13,8 @@ public class DriveTrain extends PIDSubsystem
 	public static DifferentialDrive wheelz;
 	//SpeedControllerGroup left;
 	//SpeedControllerGroup right;
-	TalonSRX frontLeft;
-	TalonSRX frontRight;
+	static TalonSRX frontLeft;
+	static TalonSRX frontRight;
 	static double setpoint; 
 	public static boolean isTurning; 
 	static boolean isBackwards; 
@@ -88,32 +88,44 @@ public class DriveTrain extends PIDSubsystem
     //basic driving methods for auto commands
 			public static void driveForward()
 			{
-				wheelz.arcadeDrive(0.15 , 0.0);
+				frontLeft.set(ControlMode.PercentOutput, .15);
+				frontRight.set(ControlMode.PercentOutput, .15);
+				//wheelz.arcadeDrive(0.15 , 0.0);
 			}
 			
 			public static void driveBackward()
 			{
-				wheelz.arcadeDrive(0.15, 0.0);
+				frontLeft.set(ControlMode.PercentOutput, .15);
+				frontRight.set(ControlMode.PercentOutput, .15);
+				//wheelz.arcadeDrive(0.15, 0.0);
 			}
 			
 			public static void turnLeftSlow()
 			{
-				wheelz.tankDrive(-.22, .22);
+				frontLeft.set(ControlMode.PercentOutput, -.22);
+				frontRight.set(ControlMode.PercentOutput, .22);
+				//wheelz.tankDrive(-.22, .22);
 			}
 			
 			public static void turnLeftFast()
 			{
-				wheelz.arcadeDrive(0.3, -1);
+				frontLeft.set(ControlMode.PercentOutput, -.3);
+				frontRight.set(ControlMode.PercentOutput, .3);
+				//wheelz.arcadeDrive(0.3, -1);
 			}
 			
 			public static void turnRightSlow()
 			{
-				wheelz.tankDrive(0.22, -.22);
+				frontLeft.set(ControlMode.PercentOutput, .22);
+				frontRight.set(ControlMode.PercentOutput, -.22);
+				//wheelz.tankDrive(0.22, -.22);
 			}
 			
 			public static void turnRightFast()
 			{
-				wheelz.arcadeDrive(0.3, 1);
+				frontLeft.set(ControlMode.PercentOutput, .3);
+				frontRight.set(ControlMode.PercentOutput, -.3);
+				//wheelz.arcadeDrive(0.3, 1);
 			}
 			
 	public void changeIsTurning(boolean val)
