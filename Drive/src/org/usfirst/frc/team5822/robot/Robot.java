@@ -21,23 +21,38 @@ import org.usfirst.frc.team5822.robot.subsystems.ExampleSubsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Robot extends TimedRobot 
 {
 	Joystick j = new Joystick(0);
 	Joystick k = new Joystick(1);
 	
-	TalonSRX frontLeft, frontRight;
+	//TalonSRX frontLeft, frontRight;
+	WPI_TalonSRX frontL, frontR, rearL, rearR;
+	DifferentialDrive robotBase;
+	SpeedControllerGroup left, right;
+	
 	@Override
 	public void robotInit() 
 	{
-		frontLeft = new TalonSRX(0);
-		TalonSRX rearLeft = new TalonSRX(1);
-		rearLeft.set(ControlMode.Follower, 0);
+//		frontLeft = new TalonSRX(0);
+//		TalonSRX rearLeft = new TalonSRX(1);
+//		rearLeft.set(ControlMode.Follower, 0);
+//		
+//		frontRight = new TalonSRX(2);
+//		TalonSRX rearRight = new TalonSRX(3);
+//		rearRight.set(ControlMode.Follower, 2);
 		
-		frontRight = new TalonSRX(2);
-		TalonSRX rearRight = new TalonSRX(3);
-		rearRight.set(ControlMode.Follower, 2);
+		frontL = new WPI_TalonSRX(0);
+		rearL = new WPI_TalonSRX(1);
+		frontR = new WPI_TalonSRX(2);
+		rearR = new WPI_TalonSRX(3);
+		
+		left = new SpeedControllerGroup(frontL, rearL);
+		right = new SpeedControllerGroup(frontR, rearR);
+		
+		robotBase = new DifferentialDrive(left, right);
 	}
 
 	@Override
@@ -67,9 +82,10 @@ public class Robot extends TimedRobot
 	@Override
 	public void teleopPeriodic() 
 	{
-		frontLeft.set(ControlMode.PercentOutput, k.getY());
-		frontRight.set(ControlMode.PercentOutput, j.getY());
+		//frontLeft.set(ControlMode.PercentOutput, k.getY());
+		//frontRight.set(ControlMode.PercentOutput, j.getY());
 		
+		robotBase.arcadeDrive(j.getY(), j.getX());
 	}
 
 	/**
