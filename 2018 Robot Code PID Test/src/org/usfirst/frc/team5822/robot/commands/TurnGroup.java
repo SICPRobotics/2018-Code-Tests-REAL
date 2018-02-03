@@ -27,7 +27,7 @@ public class TurnGroup extends CommandGroup
     		addSequential(new Turn(degrees, -.3, false));
     		addSequential(new Turn(degrees, .15, true));
     	}
-    	System.out.println("Gryo: " + Robot.sensors.getGyro());
+    	System.out.println("Gyro: " + Robot.sensors.getGyro());
     	System.out.println("Finished Turn Group");
     		
         // To run multiple commands at the same time,

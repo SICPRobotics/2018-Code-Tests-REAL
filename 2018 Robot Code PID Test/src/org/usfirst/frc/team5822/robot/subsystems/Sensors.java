@@ -65,7 +65,7 @@ public class Sensors extends Subsystem
 	
 	public static double rightEncoderDistance()
 	{
-		System.out.println("Right Encoder Distance: " + rightEncoder.getDistance());
+		System.out.print("Rt Enc Dist: " + rightEncoder.getDistance());
 		
 		//Temporary measure to test the autoDrive
 		return rightEncoder.getDistance();

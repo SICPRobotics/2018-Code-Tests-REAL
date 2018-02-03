@@ -20,12 +20,15 @@ public class AutoMode extends CommandGroup
     		case leftSide:
     			System.out.println("AutoMode Left");
     			addSequential(new A_Left(gameData));
+    			break;
     		case centerSide:
     			System.out.println("AutoMode Center");
     			addSequential(new A_Center(gameData));
+    			break;
     		case rightSide:
     			System.out.println("AutoMode Right");
     			addSequential(new A_Right(gameData));
+    			break;
     	}
     }
 }
